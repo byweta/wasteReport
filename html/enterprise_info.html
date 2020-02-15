@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- author：王朝贤 / createTime：2020年2月12日 -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>企业信息</title>
+		<!-- 引入 jquery-weui -->
+		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+		<style type="text/css">
+			body,
+			html {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				-webkit-tap-highlight-color: transparent;
+			}
+
+			.container {
+				height: 100%;
+				position: relative;
+			}
+
+			.top_bar {
+				height: 36px;
+				position: relative;
+				z-index: 999;
+				background-color: #F7F7F7;
+			}
+
+			.top_title {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				padding: 0 20px;
+				box-sizing: border-box;
+				height: 36px;
+				background-color: #F7F7F7;
+				line-height: 36px;
+				font-size: 14px;
+				color: #93A3DA;
+				border-radius: 2px;
+				display: flex;
+				display: -webkit-flex;
+				align-items: center;
+				-webkit-align-items: center;
+				justify-content: center;
+				-webkit-justify-content: center;
+			}
+
+			.icon_tips {
+				width: 20px;
+				min-width: 20px;
+				height: 20px;
+				background: url(../img/ui/2x/ts@2x.png) left bottom no-repeat;
+				background-size: 16px;
+			}
+
+			.tips_content {
+				width: 100%;
+				height: 30px;
+			}
+
+			/* 主体区域 */
+			.main_bar {
+				height: calc(100% - 36px);
+				height: -webkit-calc(100% - 36px);
+				overflow: hidden;
+				overflow-y: auto;
+			}
+			
+			.form_container {
+				padding: 0 20px;
+			}
+			
+			.info_form {
+				padding: 0 10px;
+				padding-top: 10px;
+				padding-bottom: 15px;
+				background-color: #FFFFFF;
+				border-radius: 4px;
+				color: #333333;
+				font-size: 14px;
+			}
+			
+			.item_info {
+				display: flex;
+				display: -webkit-flex;
+				align-items: center;
+				-webkit-align-items: center;
+				justify-content: center;
+				-webkit-justify-content: center;
+				border-bottom: 1px solid #E1E1E1;
+			}
+			
+			.info_form .item_info:last-child {
+				border-bottom: 1px solid #FFFFFF;
+			}
+			.info_title {
+				height: 40px;
+				line-height: 40px;
+				flex: 0 0 1;
+				-webkit-flex: 0 0 1;
+				font-size: 15px;
+				color: #333333;
+			}
+			
+			.info_value {
+				flex: 1;
+				-webkit-flex: 1;
+				margin-top: 0;
+				font-size: 15px;
+				height: 30px;
+				padding: 10px 0;
+				
+			}
+			
+			.info_value input {
+				width: 100%;
+				text-align: right;
+				outline: none;
+				border: 0px;
+				line-height: 30px;
+				color: #666666;
+			}
+			
+			.float_btn {
+				position: fixed;
+				bottom: 30px;
+				right: 24px;
+				width: 75px;
+				height: 75px;
+				border-radius: 50%;
+				background: url(../img/ui/2x/bianji@2x.png) center no-repeat;
+				background-size: 70px;
+			}
+			
+			.float_save_btn {
+				background: url(../img/ui/2x/bc@2x.png) center no-repeat;
+				background-size: 70px;
+			}
+			
+
+			/* 超出单行显示省略号 */
+			.line_ellipsis {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		</style>
+	</head>
+	<body ontouchstart>
+		<div class="container" id="container">
+			<!-- 顶部区域 -->
+			<div class="top_bar">
+				<div class="top_title line_ellipsis">
+					<div class="icon_tips"></div>
+					<div class="tips_content">
+						首次登录请先完善企业信息
+					</div>
+				</div>
+			</div>
+			<!-- 主体区域 -->
+			<div class="main_bar">
+				<div class="form_container">
+					<div class="info_form" id="entId">
+						<div class="item_info">
+							<div class="info_title">企业名称：</div>
+							<div class="info_value">
+								<input type="text" name="" id="" value="" readonly="readonly" placeholder="请输入"/>
+							</div>
+						</div>
+						<div class="item_info">
+							<div class="info_title">企业地址：</div>
+							<div class="info_value">
+								<input type="text" name="" id="" value="" readonly="readonly" placeholder="请输入" />
+							</div>
+						</div>
+						<div class="item_info">
+							<div class="info_title">企业联系人：</div>
+							<div class="info_value">
+								<input type="text" name="" id="" value="" readonly="readonly" placeholder="请输入" />
+							</div>
+						</div>
+						<div class="item_info">
+							<div class="info_title">联系电话：</div>
+							<div class="info_value">
+								<input type="text" name="" id="" value="" readonly="readonly" placeholder="请输入" />
+							</div>
+						</div>
+						<div class="item_info">
+							<div class="info_title">医疗废物日处理量(吨)：</div>
+							<div class="info_value">
+								<input type="number" name="" id="" value="" readonly="readonly" placeholder="请输入" />
+							</div>
+						</div>
+						<div class="item_info">
+							<div class="info_title">企业登录密码：</div>
+							<div class="info_value">
+								<input type="text" name="" id="" value="" v-model="ent.password" readonly="readonly" placeholder="请输入" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="float_btn" id="floatId" onclick="fnEditAndSaveForm();">
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				FastClick.attach(document.body);
+			})
+		</script>
+		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			// 原始密码
+			var password = "";
+			var editOrSave = 1;// 0：表示编辑模式 1：表示查看模式
+			// 是否注册操作，0：非注册；1：注册
+			var first = 0;
+			// 初始化双向绑定模型
+			var vue = new Vue({
+				el: '#entId',
+				data: {
+					ent: {
+						password: ''
+					}
+				},
+				methods: {
+					
+				}
+			});
+			$(function(){
+				// 浮动按钮默认为：查看模式，显示编辑按钮
+				first = window.localStorage.getItem("first");
+				if(first != undefined && first == 1){
+					// 开启编辑模式，显示保存按钮
+					editOrSave = 1;
+					fnEditAndSaveForm();
+				} else {
+					first = 0;
+					// 获取企业信息
+					fnGetEnterpriseInfo();
+				}
+			});
+			
+			// 编辑和保存企业信息
+			function fnEditAndSaveForm(){
+				if(editOrSave == 0){
+					// 当前为编辑模式，执行提交保存
+					fnSubmitEnterpriseInfo();
+				} else {
+					// 当前为查看模式，切换为编辑模式
+					$("#floatId").addClass("float_save_btn");
+					$(".info_value input").removeAttr("readonly");
+					editOrSave = 0;
+				}
+			}
+			
+			// 提交企业信息
+			function fnSubmitEnterpriseInfo(){
+				// 非空检验和密码修改校验
+				if($.trim(vue.$data.ent.password) == ''){
+					$.toast("请完善企业信息！", "cancel")
+					return;
+				}
+				$.showLoading();
+				return;
+				var url = mHost + mServerName + "/Regest";
+				var params = {
+					password: vue.$data.ent.password
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "GET",
+					url: url,
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						console.log("=== === >> 注册企业结果: " + JSON.stringify(result));
+						if (result.code != undefined && result.code == '1') {
+							// 保存成功，并切换为查看模式
+							$("#floatId").removeClass("float_save_btn");
+							$(".info_value input").attr("readonly", "readonly");
+							editOrSave = 1;
+							if(first == 1){
+								$.toast("注册成功！");
+								// 注册成功
+								window.history.back();
+							} else {
+								if(password != params.password){
+									// 密码修改了
+									$.alert("密码已修改为："+params.password+"，请牢记！", "密码已修改！");
+								} else {
+									$.toast("保存成功！");
+								}
+							}
+						} else {
+							// 注册/保存失败
+							if(first == 1){
+								$.toast("注册失败！", 'cancel');
+							} else {
+								$.toast("保存失败！", 'cancel');
+							}
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+				
+				
+				// 判断是否为注册，如果为注册，跳转到登录页面。
+				if(first == 1){
+					window.history.back();
+					// window.location.href = "./login.html";
+				}
+			}
+			
+			// 获取企业信息
+			function fnGetEnterpriseInfo(){
+				return;
+				$.showLoading();
+				var url = mHost + mServerName + "/getEntInfo";
+				var params = {
+					
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "GET",
+					url: url,
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						console.log("=== === >> 获取企业信息: " + JSON.stringify(result));
+						if (result.code != undefined && result.code == '1') {
+							// 获取企业信息，并展示
+							vue.$data.ent = result.data;
+							password = "";
+						} else {
+							// 获取到企业信息失败
+							$.toast("获取到企业信息失败！", 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- author：王朝贤 / createTime：2020年2月12日 -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>企业信息</title>
+		<!-- 引入 jquery-weui -->
+		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/iosSelect.css">
+		<style type="text/css">
+			body,
+			html {
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				-webkit-tap-highlight-color: transparent;
+			}
+			/* win标题栏样式 */
+			#header {
+				width: 100%;
+				height: 50px;
+				line-height: 50px;
+				display: flex;
+				display: -webkit-flex;
+				justify-content: space-between;
+				-webkit-justify-content: space-between;
+				align-items: center;
+				-webkit-align-items: center;
+				background: #38B8B3;
+				color: #FFFFFF;
+				background: url(../img/ui/2x/top@2x.png) center no-repeat;
+				background-size: cover;
+			}
+			#header .win_left {
+				width: 50px;
+				min-width: 50px;
+				text-align: center;
+			}
+			#header .win_title {
+				width: 100%;
+				text-align: center;
+				font-size: 20px;
+			}
+			#header .win_right {
+				width: 50px;
+				min-width: 50px;
+				text-align: center;
+			}
+			#header .icon_left {
+				height: 50px;
+				background: url(../img/ui/2x/fh@2x.png) center no-repeat;
+				background-size: 8px;
+			}
+			#header .icon_right {
+				height: 50px;
+				background: url(../image/base/icon_.png) center no-repeat;
+				background-size: 25px;
+			}
+			
+			.container {
+				height: calc(100vh - 50px);
+				height: -webkit-calc(100vh - 50px);
+				overflow: hidden;
+				overflow-y: auto;
+			}
+			
+			.top_bar {
+				height: 36px;
+				position: relative;
+				background-color: #F7F7F7;
+			}
+			
+			.top_title {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				padding: 0 10px;
+				box-sizing: border-box;
+				height: 36px;
+				background-color: #F7F7F7;
+				line-height: 36px;
+				font-size: 14px;
+				color: #93A3DA;
+				border-radius: 2px;
+				display: flex;
+				display: -webkit-flex;
+				align-items: center;
+				-webkit-align-items: center;
+				justify-content: center;
+				-webkit-justify-content: center;
+			}
+			
+			.icon_tips {
+				width: 20px;
+				min-width: 20px;
+				height: 20px;
+				background: url(../img/ui/2x/ts@2x.png) left bottom no-repeat;
+				background-size: 16px;
+			}
+			
+			.tips_content {
+				width: 100%;
+				height: 30px;
+			}
+			
+			.form_container {
+			}
+			
+			.info_form {
+				/* padding: 0 10px; */
+				padding-top: 10px;
+				padding-bottom: 15px;
+				background-color: #FFFFFF;
+				border-radius: 4px;
+				color: #333333;
+				font-size: 14px;
+			}
+			
+			.item_info {
+				padding: 0 10px;
+				display: flex;
+				display: -webkit-flex;
+				align-items: center;
+				-webkit-align-items: center;
+				justify-content: center;
+				-webkit-justify-content: center;
+				border-bottom: 1px solid #E1E1E1;
+			}
+			
+			.info_form .item_info:nth-last-child() {
+				border-bottom: 1px solid #FFFFFF;
+			}
+			.info_title {
+				height: 40px;
+				line-height: 40px;
+				flex: 0 0 1;
+				-webkit-flex: 0 0 1;
+				font-size: 15px;
+				color: #333333;
+			}
+			
+			.info_value {
+				flex: 1;
+				-webkit-flex: 1;
+				margin-top: 0;
+				font-size: 15px;
+				height: 30px;
+				padding: 10px 0;
+				/* background-color: #93D1FF; */
+			}
+			
+			.info_value_num {
+				display: flex;
+				display: -webkit-flex;
+				align-items: center;
+				-webkit-align-items: center;
+				justify-content: flex-end;
+				-webkit-justify-content: flex-end;
+			}
+			
+			.icon_vleft {
+				width: 20px;
+				min-width: 20px;
+				height: 40px;
+				background: url(../img/ui/2x/zz@2x.png) center no-repeat;
+				background-size: 16px;
+			}
+			
+			.icon_vright {
+				width: 20px;
+				height: 40px;
+				background: url(../img/ui/2x/y@2x.png) center no-repeat;
+				background-size: 16px;
+			}
+			
+			.info_unit {
+				width: 40px;
+				min-width: 40px;
+				text-align: right;
+			}
+			
+			.info_value input {
+				width: 100%;
+				text-align: right;
+				outline: none;
+				border: 0px;
+				line-height: 30px;
+				color: #666666;
+			}
+			
+			.info_value_num>input {
+				width: 20px;
+				text-align: center;
+				min-width: 40px;
+			}
+			
+			.info_icon {
+				flex: 0 0 1;
+				-webkit-flex: 0 0 1;
+				width: 45px;
+				min-width: 45px;
+				height: 40px;
+			}
+			
+			.icon_date {
+				background: url(../img/ui/2x/rl@2x.png) center no-repeat;
+				background-size: 26px;
+			}
+			
+			.icon_search {
+				background: url(../img/ui/2x/sous@2x.png) center no-repeat;
+				background-size: 26px;
+			}
+			
+			.icon_down {
+				background: url(../img/ui/2x/xial@2x.png) center no-repeat;
+				background-size: 26px;
+			}
+			
+			.blue_cls {
+				color: #3F8C81 !important;
+			}
+			
+			.info_value_file {
+				display: flex;
+				display: -webkit-flex;
+				align-items: center;
+				-webkit-align-items: center;
+				justify-content: flex-end;
+				-webkit-justify-content: flex-end;
+			}
+			
+			.attach {
+				height: 38px;
+				padding: 0 10px;
+				display: flex;
+				display: -webkit-flex;
+				align-items: center;
+				-webkit-align-items: center;
+				background: #E1EEFE;
+				border: 1px solid #A8C8FD;
+				border-radius: 2px;
+				color: #2F7BFA;
+				font-size: 14px;
+			}
+			
+			.icon_upload {
+				width: 30px;
+				height: 24px;
+				background: url(../img/ui/2x/shangc@2x.png) center no-repeat;
+				background-size: 24px;
+			}
+			
+			.select_upload {
+				
+			}
+			
+			.item_info_noline {
+				border-bottom: 1px solid #FFFFFF;
+			}
+			
+			.info_tips {
+				padding-top: 5px;
+				color: #999999;
+				font-size: 14px;
+				width: 100%;
+				height: 30px;
+				line-height: 30px;
+			}
+			
+			.user_btn {
+				margin: 0 20px;
+				margin-top: 24px;
+				height: 44px;
+				line-height: 50px;
+				border-radius: 2px;
+				background: url(../img/ui/2x/top@2x.png) center no-repeat;
+				background-size: cover;
+				text-align: center;
+				font-size: 16px;
+				font-weight: 700;
+				letter-spacing: 2px;
+				color: #FFFFFF;
+			}
+			
+			.framePage {
+				padding: 0;
+				margin: 0;
+			    width: 100%;
+				height: 100%;
+				background-color: #00FFFF;
+			}
+			
+			/* 超出单行显示省略号 */
+			.line_ellipsis {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		</style>
+	</head>
+	<body ontouchstart>
+		<header id="header">
+			<div class="win_left icon_left" tapmode onclick="fnGoBack();">
+			</div>
+			<div class="win_title" id="winTitle">医疗废物处理填报</div>
+			<div class="win_right ">
+			</div>
+		</header>
+		<div class="container" id="container">
+			<!-- 顶部区域 -->
+			<div class="top_bar">
+				<div class="top_title line_ellipsis">
+					<div class="icon_tips"></div>
+					<div class="tips_content">
+						请分别上报各医疗机构的处理废物量
+					</div>
+				</div>
+			</div>
+			<!-- 表单区域 -->
+			<div class="form_container">
+				<div class="info_form" id="entId">
+					<div class="item_info">
+						<div class="info_title">处理日期：</div>
+						<div class="info_value">
+							<input type="text" readonly="readonly" id="dateTime" name="" value="2020-02-14" />
+						</div>
+						<div class="info_icon icon_date" onclick="fnSelectDate()"></div>
+					</div>
+					<div class="item_info">
+						<div class="info_title">废物来源：</div>
+						<div class="info_value">
+							<input type="text" name="" id="" value="" placeholder="请输入" />
+						</div>
+						<div class="info_icon icon_search"></div>
+					</div>
+					<div class="item_info">
+						<div class="info_title">废物类型：</div>
+						<div class="info_value">
+							<input type="text" readonly="readonly" id="typeId" name="" value="感染性废物" />
+						</div>
+						<div class="info_icon icon_down" onclick="fnSelectType()"></div>
+					</div>
+					<div class="item_info">
+						<div class="info_title">废物重量：</div>
+						<div class="info_value info_value_num">
+							<div class="icon_vleft" onclick="fnSubNum('fwzlId')"></div>
+							<input type="number" onchange="fnCount()" name="" id="fwzlId" value="0" min="0"  />
+							<div class="icon_vright" onclick="fnPlusNum('fwzlId')"></div>
+							<div class="info_unit">千克</div>
+						</div>
+					</div>
+					<div class="item_info">
+						<div class="info_title">处理量：</div>
+						<div class="info_value info_value_num">
+							<div class="icon_vleft" @click="fnSubNum('cllId')"></div>
+							<input type="number" onchange="fnCount()" name="" id="cllId" value="0" min="0" />
+							<div class="icon_vright" @click="fnPlusNum('cllId')"></div>
+							<div class="info_unit">千克</div>
+						</div>
+					</div>
+					<div class="item_info">
+						<div class="info_title">处理率：</div>
+						<div class="info_value">
+							<input type="text" readonly="readonly" class="blue_cls" name="" id="cllvId" value="0%" />
+						</div>
+					</div>
+					<div class="item_info">
+						<div class="info_title">处理方式：</div>
+						<div class="info_value">
+							<input type="text" readonly="readonly" id="funcId" name="" value="焚烧" />
+						</div>
+						<div class="info_icon icon_down" onclick="fnSelectFunc()"></div>
+					</div>
+					<div class="item_info">
+						<div class="info_title">附件材料：</div>
+						<div class="info_value info_value_file">
+							<div class="attach" onclick="fnChoseFile()">
+								<div class="icon_upload"></div>
+								<div class="select_upload">拍照&上传</div>
+							</div>
+						</div>
+					</div>
+					<div class="item_info item_info_noline">
+						<div class="info_tips">
+							支持扩展名(.rar .zip .doc .docx .pdf .jpg...)
+						</div>
+					</div>
+					<div class="user_btn" onclick="fnReportForm();">
+						确认信息上报
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/date.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/iosSelect.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/iosSelect/select1.option.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/iosSelect/select3.time.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				FastClick.attach(document.body);
+			})
+		</script>
+		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			// 初始化双向绑定模型
+			var vue = new Vue({
+				el: '#entId',
+				data: {
+					ent: {
+						
+					}
+				},
+				methods: {
+					fnSubNum : fnSubNum,
+					fnPlusNum : fnPlusNum
+				}
+			});
+			// 废物类型，处理方式
+			var type = "", func = "";
+			$(function(){
+				var now = new Date();
+				var nowDate = now.Format("yyyy-MM-dd");
+				$("#dateTime").val(nowDate);
+			});
+			
+			// 退回
+			function fnGoBack(){
+				window.history.back();
+			}
+			
+			// 选择处理日期
+			function fnSelectDate(){
+				var dateStr = $("#dateTime").val();
+				getSelectTime(dateStr, function(checkDate){
+					console.log("返回的时间："+JSON.stringify(checkDate));
+					var checkDateStr = checkDate.year+"-"+
+						(parseInt(checkDate.month)<10?"0"+parseInt(checkDate.month):checkDate.month)+"-"+
+						(parseInt(checkDate.day)<10?"0"+parseInt(checkDate.day):checkDate.day);
+					$("#dateTime").val(checkDateStr);
+				});
+			}
+			
+			// 选择废物类型
+			function fnSelectType(){
+				oneOptionId = type;
+				firstOptions = firstOptionsType;
+				getOptionId(oneOptionId, function(checkOption){
+					firstOptionId = checkOption.firstOptionId;
+					type = firstOptionId;
+					var firstOptionName= checkOption.firstOptionName;
+					$("#typeId").val(firstOptionName);
+				});
+			}
+			
+			// 选择处理方式
+			function fnSelectFunc(){
+				oneOptionId = func;
+				firstOptions = firstOptionsFunc;
+				getOptionId(oneOptionId, function(checkOption){
+					firstOptionId = checkOption.firstOptionId;
+					func = firstOptionId;
+					var firstOptionName= checkOption.firstOptionName;
+					$("#funcId").val(firstOptionName);
+				});
+			}
+			
+			// 减法
+			function fnSubNum(id){
+				console.log("=== === >> id: "+id);
+				var num = $("#"+id).val();
+				console.log("=== === >> num:"+num);
+				if(num == 0){
+					return;
+				}
+				$("#"+id).val(--num);
+				fnCount()
+			}
+			
+			// 加法
+			function fnPlusNum(id){
+				console.log("=== === >> id: "+id);
+				var num = $("#"+id).val();
+				console.log("=== === >> num:"+num);
+				$("#"+id).val(++num);
+				fnCount();
+			}
+			
+			function fnCount(){
+				var num1 = $("#cllId").val();
+				var num2 = $("#fwzlId").val();
+				var cll = 0;
+				if(num1 != 0 && num2 != 0){
+					cll = (Number(num1 / num2).toFixed(4));
+					cll = (Number(cll)*100).toFixed(2);
+				}
+				console.log("=== === >> cll:"+cll);
+				$("#cllvId").val(cll+"%");
+			}
+			
+			// 选择附件
+			function fnChoseFile(){
+				
+			}
+			
+			// 确认上报
+			function fnReportForm(){
+				$.showLoading();
+				setTimeout(function(){
+					$.hideLoading();
+					$.toast("上报成功！");
+					window.history.back();
+				}, 2000);
+				return;
+				var url = mHost + mServerName + "/";
+				var params = {
+					
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "GET",
+					url: url,
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						console.log("=== === >> 上报结果: " + JSON.stringify(result));
+						if (result.code != undefined && result.code == '1') {
+							// 上报成功
+							$.toast("上报成功！");
+							window.history.back();
+						} else {
+							// 上报失败
+							$.toast("上报失败！", 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+			}
+		</script>
+	</body>
+</html>

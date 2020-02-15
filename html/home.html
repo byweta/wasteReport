@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- author：王朝贤 / createTime：2020年2月11日 -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>医疗废物处理填报</title>
+		<!-- 引入 jquery-weui -->
+		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+		<style type="text/css">
+			body,
+			html {
+				height: 100%;
+				-webkit-tap-highlight-color: transparent;
+			}
+
+			.container {
+				height: 100%;
+			}
+
+			.top_bar {
+				height: 55vw;
+				position: relative;
+				background: url(../img/ui/2x/topbj@2x.png) center no-repeat;
+				background-size: cover;
+			}
+
+			.top_title {
+				position: absolute;
+				bottom: 70px;
+				left: 20px;
+				width: 56%;
+				line-height: 36px;
+				font-size: 28px;
+				font-weight: 700;
+				color: #FFFFFF;
+			}
+
+			.top_slogan {
+				position: absolute;
+				bottom: 30px;
+				left: 20px;
+				width: 180px;
+				height: 30px;
+				background: url(../img/ui/2x/title@2x.png) center left no-repeat;
+				background-size: auto 16px;
+			}
+
+			/* 主体区域 */
+			.main_bar {
+				height: calc(100vh - 55vw) !important;
+				height: -webkit-calc(100vh - 55vw) !important;
+				background-color: #F7F7F7;
+				position: relative;
+			}
+
+			/* 导航栏 */
+			.nav-tab {
+				margin: 0 20px;
+				padding: 0 20px;
+				box-sizing: border-box;
+				background: #FFFFFF;
+				border-radius: 4px;
+				position: absolute;
+				width: calc(100vw - 40px);
+				top: -25px;
+				left: 0;
+			}
+
+			.nav_bar {
+				height: 50px;
+				display: flex;
+				display: -webkit-flex;
+				align-items: center;
+				-webkit-align-items: center;
+			}
+
+			.nav_bar_item {
+				width: 100%;
+				text-align: center;
+				height: 32px;
+				line-height: 32px;
+				font-size: 14px;
+				font-weight: 700;
+				color: #333333;
+			}
+
+			.nav_bar_item--on {
+				color: #0159FA;
+			}
+
+			.nav_bar_item_line {
+				width: 0;
+				min-width: 0;
+				height: 16px;
+				border-left: 1px solid #CCCCCC;
+			}
+
+			/* 导航主体容器 */
+			.nav_container {
+				padding-top: 30px;
+				height: calc(100vh - 55vw);
+				box-sizing: border-box;
+			}
+
+			.nav_container_item {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+
+			.framePage {
+				padding: 0;
+				margin: 0;
+				width: 100%;
+				height: 100%;
+			}
+
+			/* 超出单行显示省略号 */
+			.line_ellipsis {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		</style>
+	</head>
+	<body ontouchstart>
+		<div class="container" id="container">
+			<!-- 顶部区域 -->
+			<div class="top_bar">
+				<div class="top_title">
+					十堰市医疗废物处理厂
+				</div>
+				<div class="top_slogan">
+				</div>
+			</div>
+			<!-- 主体区域 -->
+			<div class="main_bar">
+				<!-- 主体导航 -->
+				<div class="nav-tab">
+					<div class="nav_bar">
+						<div class="nav_bar_item nav_bar_item--on" id="nav0" onclick="fnChangeNav(0)">
+							历史填报
+						</div>
+						<div class="nav_bar_item_line"></div>
+						<div class="nav_bar_item" id="nav1" onclick="fnChangeNav(1)">
+							企业信息
+						</div>
+					</div>
+				</div>
+				<div class="nav_container">
+					<div id="navIndex0" class="nav_container_item">
+						<iframe id="tabFrm0" src="./history_report.html" frameborder="0" class="framePage"></iframe>
+					</div>
+					<div id="navIndex1" class="nav_container_item">
+						<iframe id="tabFrm1" src="./enterprise_info.html" frameborder="0" class="framePage"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/common.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				FastClick.attach(document.body);
+			})
+		</script>
+		<script type="text/javascript" src="../js/jqweui/jquery-weui.min.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			// 导航标记
+			var navIndex = 0;
+			// 是否打开注册页面
+			var register = 0,
+				isFirst = false,
+				isFirstInit = false;
+			$(function() {
+				$(".nav_container_item").hide();
+				$("#navIndex" + navIndex).show();
+				register = fnGetQueryString("r");
+				if (register != undefined && register == "1") {
+					isFirst = true;
+					isFirstInit = true;
+					fnChangeNav(1);
+				}
+			});
+
+			// 导航切换
+			function fnChangeNav(navIndex_) {
+				if (isFirst && !isFirstInit) {
+					$.toast("首次登录请先完善企业信息！", 'cancel');
+					return;
+				}
+				isFirstInit = !isFirst;
+				if (navIndex == navIndex_) {
+					return;
+				}
+				navIndex = navIndex_;
+				$(".nav_bar_item--on").removeClass("nav_bar_item--on");
+				$("#nav" + navIndex_).addClass("nav_bar_item--on");
+				$(".nav_container_item").hide();
+				$("#navIndex" + navIndex_).show();
+			}
+		</script>
+	</body>
+</html>

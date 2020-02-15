@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- author：王朝贤 / createTime：2020年2月12日 -->
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+		<title>历史填报</title>
+		<!-- 引入 jquery-weui -->
+		<link rel="stylesheet" type="text/css" href="../css/weui/weui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jqweui/jquery-weui.css">
+		<style type="text/css">
+			body,
+			html {
+				margin: 0;
+				padding: 0;
+				-webkit-tap-highlight-color: transparent;
+				height: 100%;
+				background-color: #E7F0F5;
+			}
+
+			/* 主容器 */
+			.container {
+				height: calc(100vw * 1.77);
+				height: -moz-calc(100vw * 1.77);
+				height: -webkit-calc(100vw * 1.77);
+				background: url(../img/ui/2x/denglubj@2x.png) center top no-repeat;
+				background-size: 100% auto;
+			}
+
+			/* 超出单行显示省略号 */
+			.line_ellipsis {
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+
+			/* 系统名称 */
+			.logo {
+				height: 37vw;
+				display: flex;
+				display: -webkit-flex;
+				align-items: flex-end;
+				-webkit-align-items: flex-end;
+			}
+			
+			@media screen and (min-width: 360px) {
+				.logo {
+					height: 40vw;
+				}
+			}
+
+			/* 系统名称 */
+			.sys_title {
+				margin: 0 20px;
+				width: 100%;
+				height: 50px;
+				padding: 0 10px 10px 10px;
+				background: url(../img/ui/2x/bt@2x.png) center no-repeat;
+				background-size: contain;
+			}
+
+			/* 用户信息框 */
+			.user_box {
+				margin: 0 24px;
+				padding: 10px 0;
+			}
+
+			.user_info {
+				margin-top: 18px;
+				height: 48px;
+				border-radius: 2px;
+				background-color: #FFFFFF;
+				display: flex;
+				display: -webkit-flex;
+				align-items: center;
+				-webkit-align-items: center;
+			}
+
+			.icon_user {
+				width: 60px;
+				min-width: 60px;
+				height: 28px;
+				background: url(../img/ui/2x/yonghu@2x.png) center top no-repeat;
+				background-size: 24px;
+			}
+			
+			.icon_account {
+				
+			}
+			
+			.icon_pwd {
+				background: url(../img/ui/2x/mima@2x.png) center top no-repeat;
+				background-size: 24px;
+			}
+			
+			.user_input {
+				width: 100%;
+				margin-right: 20px;
+			}
+
+			input {
+				margin: 0;
+				border: 0;
+				width: 100%;
+				height: 36px;
+				outline: none;
+				font-size: 16px;
+				color: #333333;
+				font-weight: 600;
+			}
+
+			::-webkit-input-placeholder {
+				color: #ADADAD;
+				font-weight: normal;
+			}
+
+			:-moz-placeholder {
+				color: #ADADAD;
+				font-weight: normal;
+			}
+
+			::-moz-placeholder {
+				color: #ADADAD;
+				font-weight: normal;
+			}
+
+			:-ms-input-placeholder {
+				color: #ADADAD;
+				font-weight: normal;
+			}
+			
+			.user_btn {
+				margin-top: 24px;
+				height: 44px;
+				line-height: 50px;
+				border-radius: 2px;
+				background: url(../img/ui/2x/top@2x.png) center no-repeat;
+				background-size: cover;
+				text-align: center;
+				font-size: 16px;
+				font-weight: 700;
+				letter-spacing: 2px;
+				color: #FFFFFF;
+			}
+			
+			.user_register {
+				margin-top: 12px;
+				height: 24px;
+				line-height: 24px;
+				text-align: center;
+				letter-spacing: 1px;
+				font: 14px;
+				color: #3288FA;
+			}
+		</style>
+	</head>
+	<body ontouchstart>
+		<div class="container" id="container">
+			<div class="logo">
+				<div class="sys_title">
+				</div>
+			</div>
+			<div class="user_box">
+				<div class="user_info">
+					<div class="icon_user"></div>
+					<div class="user_input">
+						<input type="text" name="account" id="account" placeholder="请输入手机号" value="" />
+					</div>
+				</div>
+				<div class="user_info">
+					<div class="icon_user icon_pwd"></div>
+					<div class="user_input">
+						<input type="password" name="password" id="password" placeholder="请输入密码" value="" />
+					</div>
+				</div>
+				<div class="user_btn" onclick="fnLogin();">
+					登录
+				</div>
+				<div class="user_register" onclick="fnRegister();">
+					首次登录请注册>>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/url.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/jquery-1.12.4-min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/fastclick.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				FastClick.attach(document.body);
+			})
+		</script>
+		<script type="text/javascript" src="../js/jquery-weui/jquery-weui.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			// 登录校验
+			function fnLogin() {
+				$.showLoading();
+				var account = $("#account").val().trim();
+				var password = $("#password").val().trim();
+				if (account == '' || password == '') {
+					$.toast("手机号和密码不能为空！", 'cancel');
+					return;
+				}
+				fnGoHome();
+				return;
+				var url = mHost + mServerName + "/entLogin";
+				var params = {
+					account: account,
+					password: password
+				}
+				console.log("=== === >> 参数：" + JSON.stringify(params));
+				$.ajax({
+					type: "GET",
+					url: url,
+					data: params,
+					dataType: "jsonp",
+					success: function(result) {
+						$.hideLoading();
+						console.log("=== === >> 登录结果: " + JSON.stringify(result));
+						if (result.code != undefined && result.code == '1') {
+							// 登录成功，保存用户信息
+							
+							// 跳转主页面
+							fnGoHome();
+						} else {
+							// 登录校验失败
+							$.toast("手机号或密码错误！", 'cancel');
+						}
+					},
+					error: function(jqXHR, textStatus) {
+						$.hideLoading();
+						$.toast("服务异常！", 'cancel')
+					}
+				});
+			}
+
+			// 跳转主页面
+			function fnGoHome() {
+				window.localStorage.setItem("first", 0);
+				window.location.href = "./home.html";
+			}
+
+			// 注册
+			function fnRegister() {
+				window.localStorage.setItem("first", 1);
+				window.location.href = "./home.html?r=1";
+			}
+		</script>
+	</body>
+</html>
